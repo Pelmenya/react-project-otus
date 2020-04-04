@@ -1,0 +1,57 @@
+{
+  "name": "react-project-otus",
+  "version": "1.0.0",
+  "description": "React.js training project in Otus",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx webpack --mode production",
+    "lint": "npx eslint --ext .js,.jsx,.ts,.tsx --fix src/",
+    "test": "npx jest"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test",
+      "pre-push": "npm test"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pelmenya/react-project-otus.git"
+  },
+  "author": "Dmitry Lyapin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pelmenya/react-project-otus/issues"
+  },
+  "homepage": "https://github.com/Pelmenya/react-project-otus#readme",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-typescript": "^7.9.0",
+    "@types/jest": "^25.1.4",
+    "@typescript-eslint/eslint-plugin": "^2.26.0",
+    "babel-jest": "^25.2.4",
+    "babel-loader": "^8.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-airbnb-typescript": "^7.2.0",
+    "eslint-config-airbnb-typescript-prettier": "^2.1.1",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.19.0",
+    "html-webpack-plugin": "^4.0.3",
+    "husky": "^4.2.3",
+    "jest": "^25.2.4",
+    "prettier": "^2.0.2",
+    "prettier-airbnb-config": "^1.0.0",
+    "typescript": "^3.8.3",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "core-js": "^3.6.4"
+  }
+}

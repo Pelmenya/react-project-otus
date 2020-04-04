@@ -1,0 +1,21 @@
+{
+  "extends":  [
+    "airbnb-typescript",
+    "airbnb/hooks",
+    "plugin:import/typescript",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "airbnb-typescript-prettier",
+    "airbnb",
+    "airbnb/hooks"
+  ],
+  "rules": {
+    "prettier/prettier": "error"
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "parser": "babel-eslint",
+    "ecmaVersion": 2018
+  }
+}
