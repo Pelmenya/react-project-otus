@@ -1,5 +1,6 @@
 module.exports = {
   presets: [
+    '@babel/preset-typescript',
     [
       '@babel/preset-env',
       {
@@ -16,6 +17,5 @@ module.exports = {
         corejs: '3.6.4',
       },
     ],
-    '@babel/preset-typescript',
   ],
 };
