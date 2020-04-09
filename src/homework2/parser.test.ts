@@ -1,6 +1,10 @@
 import { parser } from './parser';
 
 describe('Parser correct cases', () => {
+  it('2 **!', () => {
+    expect(parser('2 **')).toEqual([2, '**']);
+  });
+
   it('1 + 32 !', () => {
     expect(parser('1 + 32 !')).toEqual([1, '+', 32, '!']);
   });

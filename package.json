@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npx webpack --mode production",
+    "calc" : "npx ts-node src/homework2",
     "dev": "npx webpack-dev-server --mode development --open --watch",
     "lint": "npx eslint --ext .js,.jsx,.ts,.tsx --fix ./",
     "test": "npx jest"
