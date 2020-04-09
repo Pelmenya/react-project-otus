@@ -25,6 +25,8 @@ export const parser = (line: string): ParsedLineType | null => {
       result.push(item);
     } else if (mathOperatorsOneParametr.hasOwnProperty(prevItem) && mathOperators.hasOwnProperty(item)) {
       result.push(item);
+    } else if (mathOperatorsOneParametr.hasOwnProperty(prevItem) && mathOperatorsOneParametr.hasOwnProperty(item)) {
+      result.push(item);
     } else {
       throw new TypeError('Unexpected string');
     }
