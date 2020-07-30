@@ -7,11 +7,18 @@ import type { CellProps } from "./interfaces";
  */
 const Cell: FC<CellProps> = ({ filled, x, y, onClick }) => {
   if (filled) {
-    return <button className="cell cell_live">{filled}</button>;
+    return (
+      <button
+        className="cell cell_live"
+        onClick={() => onClick(x || 0, y || 0)}
+      >
+        {filled}
+      </button>
+    );
   }
   return (
     <button className="cell cell_dead" onClick={() => onClick(x || 0, y || 0)}>
-      {filled}
+      {""}
     </button>
   );
 };
