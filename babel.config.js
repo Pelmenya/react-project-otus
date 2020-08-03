@@ -1,21 +1,15 @@
 module.exports = {
   presets: [
-    '@babel/preset-typescript',
-    [
-      '@babel/preset-env',
-      {
-        targets: {
-          android: '67',
-          ios: '12',
-          edge: '17',
-          firefox: '60',
-          chrome: '64',
-          safari: '11.1',
-          esmodules: true,
-        },
-        useBuiltIns: 'usage',
-        corejs: '3.6.4',
-      },
-    ],
+    ["@babel/preset-env", { targets: { node: "current" } }],
+    "@babel/preset-react",
+    "@babel/preset-typescript",
   ],
+  env: {
+    production: {
+      plugins: ["emotion"],
+    },
+    development: {
+      plugins: [["emotion", { sourceMap: true }]],
+    },
+  },
 };
