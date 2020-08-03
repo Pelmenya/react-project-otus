@@ -95,3 +95,5 @@ storybook-static
 .vscode
 node_modules
 storybook-static
+.loki
+
