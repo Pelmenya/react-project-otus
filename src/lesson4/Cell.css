@@ -1,0 +1,18 @@
+.cell {
+  width: 15px;
+  height: 15px;
+  border: 1px solid #000;
+  display: inline-flex;
+  margin: 1px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.cell_dead {
+  background-color: #fff;
+}
+
+.cell_live {
+  background-color: #00ff00;
+}
+
