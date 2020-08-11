@@ -94,3 +94,5 @@ Thumbs.db
 .vscode
 node_modules
 storybook-static
+.loki
+
