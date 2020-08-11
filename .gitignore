@@ -90,7 +90,6 @@ lerna-debug.log
 .DS_Store
 Thumbs.db
 
-storybook-static
 .history
 .vscode
 node_modules
