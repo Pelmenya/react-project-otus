@@ -1,9 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
-    "paths": {
-      "types/*": ["src/lesson5/types/*"]
-    },
     "target": "es5",
     "module": "commonjs",
     "allowJs": true,
