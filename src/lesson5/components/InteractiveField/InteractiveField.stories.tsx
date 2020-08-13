@@ -1,9 +1,9 @@
 import React from "react";
 import { withKnobs, number } from "@storybook/addon-knobs";
-import { Field } from "./Field";
+import { Field } from "./components";
 import { InteractiveField } from "./InteractiveField";
 export default {
-  title: "Lesson 4 / InteractiveField",
+  title: "InteractiveField",
   decorators: [withKnobs],
 };
 

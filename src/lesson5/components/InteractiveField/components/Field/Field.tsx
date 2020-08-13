@@ -1,17 +1,16 @@
 import React, { FC } from "react";
-import { Cell } from "./Cell";
-import "./Field.css";
-import type { FieldProps } from "./interfaces";
+import { Cell } from "./components";
+import { FieldContainer } from "./FieldContainer";
+
+import type { FieldProps } from "types/field";
 
 export const Field: FC<FieldProps> = ({ field, onClick }) => (
-  <div className="field">
+  <FieldContainer>
     {field.map((row, y) => [
       ...row.map((filled: string, x) => (
         <Cell key={`${x}_${y}`} filled={filled} x={x} y={y} onClick={onClick} />
       )),
       y !== row.length - 1 ? <br key={y} /> : null,
     ])}
-  </div>
+  </FieldContainer>
 );
-
-export const getField = (props: FieldProps) => <Field {...props} />;
