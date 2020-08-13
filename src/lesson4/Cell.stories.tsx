@@ -1,7 +1,7 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 import { withKnobs, text, number } from "@storybook/addon-knobs";
-import Cell from "./Cell";
+import { Cell } from "./Cell";
 export default {
   title: "Lesson 4 / Cell",
   decorators: [withKnobs],

@@ -5,26 +5,34 @@ import renderer from "react-test-renderer";
 import { Cell } from "./Cell";
 
 describe("Cell", () => {
-  it("renders button for empty cell", () => {
+  it("renders button for dead cell", () => {
     expect(
-      renderer.create(<Cell onClick={jest.fn()} />).toJSON()).toMatchSnapshot();
+      renderer.create(<Cell onClick={jest.fn()} />).toJSON()
+    ).toMatchSnapshot();
   });
-  it("renders button for filled with x cell", () => {
+
+  it("renders button for live cell", () => {
+    const isFilled = " ";
     expect(
-      renderer.create(<Cell onClick={jest.fn()}>x</Cell>).toJSON()).toMatchSnapshot();
+      renderer.create(<Cell filled={isFilled} onClick={jest.fn()} />).toJSON()
+    ).toMatchSnapshot();
   });
-  it("calls onClick callback on click by empty cell", () => {
+
+  it("calls onClick callback on click by dead cell", () => {
     const onClick = jest.fn();
     const wrapper = mount(<Cell onClick={onClick} />);
     wrapper.simulate("click");
     expect(onClick).toHaveBeenCalled();
   });
-  it("does not call onClick callback on click by filled cell", () => {
+
+  it("calls onClick callback on click by live cell", () => {
     const onClick = jest.fn();
-    const wrapper = mount(<Cell onClick={onClick}>y</Cell>);
+    const isFilled = " ";
+    const wrapper = mount(<Cell filled={isFilled} onClick={onClick} />);
     wrapper.simulate("click");
-    expect(onClick).not.toHaveBeenCalled();
+    expect(onClick).toHaveBeenCalled();
   });
+
   it("calls onClick callback with passed x, y params", () => {
     const onClick = jest.fn();
     const x = 12;

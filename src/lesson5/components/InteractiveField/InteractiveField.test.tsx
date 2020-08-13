@@ -1,5 +1,7 @@
 import React from "react";
+
 import { InteractiveField } from "./InteractiveField";
+
 import { shallow } from "enzyme";
 
 describe("InteractiveField", () => {
