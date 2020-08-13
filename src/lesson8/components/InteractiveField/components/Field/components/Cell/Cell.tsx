@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import type { CellProps } from "src/lesson8/components/InteractiveField/components/Field/node_modules/types/field";
+import type { CellProps } from "types/field";
 
 import { CellItem } from "./CellItems";
 

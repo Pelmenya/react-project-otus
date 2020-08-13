@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Cell } from "./components";
 import { FieldContainer } from "./FieldContainer";
 
-import type { FieldProps } from "src/lesson8/components/InteractiveField/components/Field/node_modules/types/field";
+import type { FieldProps } from "types/field";
 
 export const Field: FC<FieldProps> = ({ field, onClick }) => (
   <FieldContainer>
