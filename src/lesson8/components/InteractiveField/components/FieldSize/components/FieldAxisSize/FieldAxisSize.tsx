@@ -8,7 +8,8 @@ const FieldAxisSizeClass = css`
   width: 50px;
   height: 20px;
   border: 1px solid #164cb5;
-  margin-rigt: 10px;
+  border-radius: 2px;
+  margin-right: 10px;
   text-align: center;
   box-sizing: border-box;
   padding 5px 5px 5px 5px;
