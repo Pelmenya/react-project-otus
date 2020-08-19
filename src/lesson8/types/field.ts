@@ -15,3 +15,21 @@ export interface FieldProps {
   // calback to fire event on field interaction
   onClick: (x: number, y: number) => void;
 }
+
+export interface FieldAxisSizeProps {
+  type?: string;
+  size?: number;
+  name: string;
+  mouseDown: (name: string) => void;
+  mouseUp: (name: string) => void;
+}
+
+export interface FieldSizeProps {
+  inputs: Array<{
+    type: string;
+    size?: number;
+    name: string;
+  }>;
+  mouseDown: (name: string) => void;
+  mouseUp: (name: string) => void;
+}
