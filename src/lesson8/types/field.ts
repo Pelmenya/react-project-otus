@@ -20,8 +20,8 @@ export interface FieldAxisSizeProps {
   type?: string;
   size?: number;
   name: string;
-  mouseDown: (name: string) => void;
-  mouseUp: (name: string) => void;
+  onMouseDown: (name: string) => void;
+  onMouseUp: (name: string) => void;
 }
 
 export interface FieldSizeProps {
@@ -30,6 +30,6 @@ export interface FieldSizeProps {
     size?: number;
     name: string;
   }>;
-  mouseDown: (name: string) => void;
-  mouseUp: (name: string) => void;
+  onMouseDown: (name: string) => void;
+  onMouseUp: (name: string) => void;
 }

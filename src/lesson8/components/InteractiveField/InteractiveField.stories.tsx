@@ -3,7 +3,7 @@ import { withKnobs, number } from "@storybook/addon-knobs";
 import { Field } from "./components";
 import { InteractiveField } from "./InteractiveField";
 export default {
-  title: "InteractiveField",
+  title: "Lesson8/ Interactive Field",
   decorators: [withKnobs],
 };
 

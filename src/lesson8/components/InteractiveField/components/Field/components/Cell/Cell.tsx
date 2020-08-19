@@ -26,7 +26,7 @@ interface Props {
   isFilled: boolean;
 }
 
-export const CellItem = styled.button`
+const CellItem = styled.button`
   ${CellClass};
   ${({ isFilled }: Props) => (isFilled ? CellLiveClass : CellDeadClass)};
 `;

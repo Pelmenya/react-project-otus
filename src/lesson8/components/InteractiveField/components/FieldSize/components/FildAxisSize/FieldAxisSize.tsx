@@ -17,25 +17,25 @@ const FieldAxisSizeClass = css`
   }
 `;
 
-export const FieldAxisSizeInput = styled.input`
+const FieldAxisSizeItem = styled.input`
   ${FieldAxisSizeClass};
 `;
 
-export const FieldAxisSizeItem: FC<FieldAxisSizeProps> = ({
+export const FieldAxisSizeInput: FC<FieldAxisSizeProps> = ({
   type,
   size,
   name,
-  mouseDown,
-  mouseUp,
+  onMouseDown,
+  onMouseUp,
 }) => {
   return (
-    <FieldAxisSizeInput
+    <FieldAxisSizeItem
       type={type}
       min={size}
       name={name}
-      value={size}
-      onMouseDown={() => mouseDown(name)}
-      onMouseUp={() => mouseUp(name)}
+      defaultValue={size}
+      onMouseDown={() => onMouseDown(name)}
+      onMouseUp={() => onMouseUp(name)}
     />
   );
 };
