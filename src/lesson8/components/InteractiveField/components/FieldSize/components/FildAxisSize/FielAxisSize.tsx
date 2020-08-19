@@ -5,13 +5,16 @@ import { css } from "@emotion/core";
 import { FieldAxisSizeProps } from "types/field";
 
 const FieldAxisSizeClass = css`
-  width: 15px;
-  height: 15px;
-  border: 1px solid #000;
-  display: inline-flex;
-  margin: 1px;
+  width: 50px;
+  height: 20px;
+  border: 1px solid #164cb5;
+  margin-rigt: 10px;
   text-align: center;
   box-sizing: border-box;
+  padding 5px 5px 5px 5px;
+  &:last-of-type{
+    margin-right: 0px;
+  }
 `;
 
 export const FieldAxisSizeInput = styled.input`
@@ -30,6 +33,7 @@ export const FieldAxisSizeItem: FC<FieldAxisSizeProps> = ({
       type={type}
       min={size}
       name={name}
+      value={size}
       onMouseDown={() => mouseDown(name)}
       onMouseUp={() => mouseUp(name)}
     />
