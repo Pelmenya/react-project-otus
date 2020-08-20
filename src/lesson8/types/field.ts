@@ -17,19 +17,17 @@ export interface FieldProps {
 }
 
 export interface FieldAxisSizeProps {
-  type?: string;
-  size?: number;
+  type: string;
+  size: number;
   name: string;
-  onMouseDown: (name: string) => void;
-  onMouseUp: (name: string) => void;
+  onChange: (name: string) => void;
 }
 
 export interface FieldSizeProps {
   inputs: Array<{
     type: string;
-    size?: number;
+    size: number;
     name: string;
   }>;
-  onMouseDown: (name: string) => void;
-  onMouseUp: (name: string) => void;
+  onChange: (name: string) => void;
 }

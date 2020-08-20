@@ -8,14 +8,12 @@ export default {
   decorators: [withKnobs],
 };
 
-const elementOnMouseUp = action("onMouseUp (jsx)");
-const elementOnMouseDown = action("onMouseDown (jsx)");
+const elementOnChange = action("on change (jsx)");
 
 export const emptyFieldSize = () => [
   <FieldSize
     key="jsx"
-    onMouseUp={elementOnMouseUp}
-    onMouseDown={elementOnMouseDown}
+    onChange={elementOnChange}
     inputs={object("inputs", [
       { type: "number", size: 10, name: "x" },
       { type: "number", size: 10, name: "y" },

@@ -26,8 +26,7 @@ export const FieldAxisSizeInput: FC<FieldAxisSizeProps> = ({
   type,
   size,
   name,
-  onMouseDown,
-  onMouseUp,
+  onChange,
 }) => {
   return (
     <FieldAxisSizeItem
@@ -35,8 +34,7 @@ export const FieldAxisSizeInput: FC<FieldAxisSizeProps> = ({
       min={size}
       name={name}
       defaultValue={size}
-      onMouseDown={() => onMouseDown(name)}
-      onMouseUp={() => onMouseUp(name)}
+      onChange={() => onChange(name)}
     />
   );
 };

@@ -10,10 +10,10 @@ export default {
 export const nonFilledInput = () => [
   <FieldAxisSizeInput
     key="jsx"
+    size={number("size", 10)}
     type={text("type", "number")}
     name={text("name", "x")}
-    onMouseDown={action("Input mouseDown(jsx")}
-    onMouseUp={action("Input mouseUp(jsx")}
+    onChange={action("Input on change(jsx")}
   />,
 ];
 
@@ -23,7 +23,6 @@ export const filledInput = () => [
     type={text("type", "number")}
     size={number("size", 10)}
     name={text("name", "x")}
-    onMouseDown={action("Input onMouseDown(jsx")}
-    onMouseUp={action("Input onMouseUp(jsx")}
+    onChange={action("Input on change(jsx")}
   />,
 ];
