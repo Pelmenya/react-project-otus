@@ -26,7 +26,7 @@ export const FieldSize: FC<FieldSizeProps> = ({ inputs, onChange }) => {
           type={item.type}
           size={item.size}
           name={item.name}
-          onChange={() => onChange(item.name)}
+          onChange={(name, value) => onChange(name, value)}
         />,
       ])}
     </FieldSizeItem>

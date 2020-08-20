@@ -34,7 +34,9 @@ export const FieldAxisSizeInput: FC<FieldAxisSizeProps> = ({
       min={size}
       name={name}
       defaultValue={size}
-      onChange={() => onChange(name)}
+      onChange={(event) =>
+        onChange(event.target.name, Number(event.target.value))
+      }
     />
   );
 };

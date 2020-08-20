@@ -17,7 +17,7 @@ type FieldSizeComponentIterface = React.FC<{
     size: number;
     name: string;
   }>;
-  onChange: (name: string) => void;
+  onChange: (name: string, value: number) => void;
 }>;
 
 interface InteractiveFieldProps {
@@ -105,8 +105,9 @@ export class InteractiveField extends React.Component<
     });
   }
 
-  public onChange(name: string) {
+  public onChange(name: string, value: number) {
     console.log(name);
+    console.log(value);
   }
 
   render() {
