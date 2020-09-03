@@ -10,7 +10,7 @@ export default {
 const players = " ";
 export const withRealField = () => (
   <InteractiveField
-    xSize={number("xSize", 10)}
+    xSize={number("xSize", 9)}
     ySize={number("ySize", 10)}
     playerMarks={players}
     fieldComponent={Field}

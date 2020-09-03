@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 
-import { InteractiveField, Field } from "./components";
+import { InteractiveField, Field, FieldSize } from "./components";
 
 render(
   <InteractiveField
@@ -9,6 +9,7 @@ render(
     ySize={10}
     playerMarks={" "}
     fieldComponent={Field}
+    fieldSizeComponent={FieldSize}
   />,
   document.getElementById("root")
 );

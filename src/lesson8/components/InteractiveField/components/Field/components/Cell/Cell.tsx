@@ -12,6 +12,8 @@ const CellClass = css`
   margin: 1px;
   text-align: center;
   box-sizing: border-box;
+  cursor: pointer;
+  line-heigts: 0.8;
 `;
 
 const CellDeadClass = css`
@@ -26,7 +28,7 @@ interface Props {
   isFilled: boolean;
 }
 
-export const CellItem = styled.button`
+const CellItem = styled.button`
   ${CellClass};
   ${({ isFilled }: Props) => (isFilled ? CellLiveClass : CellDeadClass)};
 `;

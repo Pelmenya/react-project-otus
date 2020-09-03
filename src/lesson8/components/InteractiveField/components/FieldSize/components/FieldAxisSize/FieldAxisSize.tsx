@@ -8,7 +8,8 @@ const FieldAxisSizeClass = css`
   width: 50px;
   height: 20px;
   border: 1px solid #164cb5;
-  margin-rigt: 10px;
+  border-radius: 2px;
+  margin-right: 10px;
   text-align: center;
   box-sizing: border-box;
   padding 5px 5px 5px 5px;
@@ -17,25 +18,23 @@ const FieldAxisSizeClass = css`
   }
 `;
 
-export const FieldAxisSizeInput = styled.input`
+const FieldAxisSizeItem = styled.input`
   ${FieldAxisSizeClass};
 `;
 
-export const FieldAxisSizeItem: FC<FieldAxisSizeProps> = ({
+export const FieldAxisSizeInput: FC<FieldAxisSizeProps> = ({
   type,
   size,
   name,
-  mouseDown,
-  mouseUp,
+  onMouseUp,
 }) => {
   return (
-    <FieldAxisSizeInput
+    <FieldAxisSizeItem
       type={type}
-      min={size}
+      min={5}
       name={name}
-      value={size}
-      onMouseDown={() => mouseDown(name)}
-      onMouseUp={() => mouseUp(name)}
+      defaultValue={size}
+      onMouseUp={(event) => onMouseUp(name, Number(event.target.value))} // какой то костыль !!!
     />
   );
 };
