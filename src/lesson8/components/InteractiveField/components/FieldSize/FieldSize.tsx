@@ -17,7 +17,7 @@ const FieldSizeItem = styled.div`
   ${FieldSizeClass};
 `;
 
-export const FieldSize: FC<FieldSizeProps> = ({ inputs, onChange }) => {
+export const FieldSize: FC<FieldSizeProps> = ({ inputs, onMouseUp }) => {
   return (
     <FieldSizeItem>
       {inputs.map((item) => [
@@ -26,7 +26,7 @@ export const FieldSize: FC<FieldSizeProps> = ({ inputs, onChange }) => {
           type={item.type}
           size={item.size}
           name={item.name}
-          onChange={(name, value) => onChange(name, value)}
+          onMouseUp={(name, value) => onMouseUp(name, value)} // если не сделать - виснет при зажатой стрелке
         />,
       ])}
     </FieldSizeItem>

@@ -12,6 +12,8 @@ const CellClass = css`
   margin: 1px;
   text-align: center;
   box-sizing: border-box;
+  cursor: pointer;
+  line-heigts: 0.8;
 `;
 
 const CellDeadClass = css`

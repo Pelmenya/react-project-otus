@@ -1,4 +1,22 @@
 import React from "react";
+import styled from "@emotion/styled";
+import { css } from "@emotion/core";
+
+const ColumnWrapperClass = css`
+  border: 2px solid #ec8928;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  jystify-content: space-between;
+  box-sizing: border-box;
+  padding 10px 10px 10px 10px;
+  width: 100%;
+`;
+
+const ColumnWrapper = styled.div`
+  ${ColumnWrapperClass};
+`;
 
 type FieldComponentInterface = React.FC<{
   /**
@@ -17,7 +35,7 @@ type FieldSizeComponentIterface = React.FC<{
     size: number;
     name: string;
   }>;
-  onChange: (name: string, value: number) => void;
+  onMouseUp: (name: string, value: number) => void;
 }>;
 
 interface InteractiveFieldProps {
@@ -50,8 +68,8 @@ interface InteractiveFieldState {
   fieldState: string[][];
   fieldSizeState: Array<{
     type: string;
-    name: string;
     size: number;
+    name: string;
   }>;
 }
 
@@ -83,7 +101,7 @@ export class InteractiveField extends React.Component<
       ],
     };
     this.onClick = this.onClick.bind(this);
-    this.onChange = this.onChange.bind(this);
+    this.onMouseUp = this.onMouseUp.bind(this);
   }
 
   public onClick(x: number, y: number) {
@@ -105,27 +123,75 @@ export class InteractiveField extends React.Component<
     });
   }
 
-  public onChange(name: string, value: number) {
-    console.log(name);
+  public onMouseUp(name: string, value: number) {
     console.log(value);
+    switch (name) {
+      case "x": {
+        this.setState((state) => {
+          if (value < this.xSize) {
+            while (value < this.xSize) {
+              Object.keys(state.fieldState).forEach((item) =>
+                state.fieldState[Number(item)].pop()
+              );
+              this.xSize -= 1;
+            }
+          }
+          if (value > this.xSize) {
+            while (value > this.xSize) {
+              Object.keys(state.fieldState).forEach((item) =>
+                state.fieldState[Number(item)].push("")
+              );
+              this.xSize += 1;
+            }
+          }
+          console.log(state.fieldState);
+          return {
+            fieldState: state.fieldState,
+          };
+        });
+        break;
+      }
+      case "y": {
+        this.setState((state) => {
+          if (value < this.ySize) {
+            this.ySize = value;
+            state.fieldState.length = this.ySize;
+          }
+          if (value > this.ySize) {
+            while (value > this.ySize) {
+              state.fieldState[this.ySize] = [];
+              for (let i = 0; i < this.xSize; i += 1) {
+                state.fieldState[this.ySize].push("");
+              }
+              this.ySize += 1;
+            }
+            console.log(state.fieldState);
+          }
+          return {
+            fieldState: state.fieldState,
+          };
+        });
+        break;
+      }
+    }
   }
 
   render() {
     const FieldComponent = this.FieldComponent;
     const FieldSizeComponent = this.FieldSizeComponent;
-    return [
-      <FieldComponent
-        key={"fieldComponent"}
-        field={this.state.fieldState}
-        onClick={this.onClick}
-      />,
-      <br key={1} />,
-      <br key={2} />,
-      <FieldSizeComponent
-        key={"fieldSizeComponent"}
-        inputs={this.state.fieldSizeState}
-        onChange={this.onChange}
-      />,
-    ];
+    return (
+      <ColumnWrapper>
+        <FieldComponent
+          key={"fieldComponent"}
+          field={this.state.fieldState}
+          onClick={this.onClick}
+        />
+        <FieldSizeComponent
+          key={"fieldSizeComponent"}
+          inputs={this.state.fieldSizeState}
+          onMouseUp={this.onMouseUp}
+        />
+      </ColumnWrapper>
+    );
   }
 }

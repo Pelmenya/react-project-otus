@@ -6,12 +6,13 @@ import { Cell } from "./components";
 import type { FieldProps } from "types/field";
 
 const FieldClass = css`
-  display: inline-block;
+  display: block;
   padding: 10px;
   border: 2px solid lightgray;
+  margin-bottom: 10px;
 `;
 
-export const FieldComponent = styled.div`
+const FieldComponent = styled.div`
   ${FieldClass};
 `;
 
@@ -21,7 +22,7 @@ export const Field: FC<FieldProps> = ({ field, onClick }) => (
       ...row.map((filled: string, x) => (
         <Cell key={`${x}_${y}`} filled={filled} x={x} y={y} onClick={onClick} />
       )),
-      y !== row.length - 1 ? <br key={y} /> : null,
+      y !== field.length - 1 ? <br key={y} /> : null,
     ])}
   </FieldComponent>
 );
