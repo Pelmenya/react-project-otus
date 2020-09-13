@@ -34,7 +34,7 @@ export const FieldAxisSizeInput: FC<FieldAxisSizeProps> = ({
       min={5}
       name={name}
       defaultValue={size}
-      onMouseUp={(event) => onMouseUp(name, Number(event.target.value))} // какой то костыль !!!
+      onMouseUp={(event) => onMouseUp(name, Number(event.target.value))} //какой то костыль !!!
     />
   );
 };
