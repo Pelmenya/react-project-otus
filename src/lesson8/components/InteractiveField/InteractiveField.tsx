@@ -12,6 +12,7 @@ const ColumnWrapperClass = css`
   box-sizing: border-box;
   padding 10px 10px 10px 10px;
   width: 100%;
+  height: 100%;
 `;
 
 const ColumnWrapper = styled.div`
@@ -73,23 +74,28 @@ interface InteractiveFieldState {
   }>;
 }
 
-export class InteractiveField extends React.Component<
+export class InteractiveField extends React.PureComponent<
   InteractiveFieldProps,
   InteractiveFieldState
 > {
+  private xSize: number;
+  private ySize: number;
   private playerMarks: string;
   private FieldComponent: FieldComponentInterface;
   private FieldSizeComponent: FieldSizeComponentIterface;
-  private xSize: number;
-  private ySize: number;
+
+  private setStateofInputByName(name: string, size: number): void {
+    const input = this.state.fieldSizeState.find((item) => item.name === name);
+    if (input) input.size = size;
+  }
 
   constructor(props: InteractiveFieldProps) {
     super(props);
+    this.xSize = props.xSize;
+    this.ySize = props.ySize;
     this.playerMarks = props.playerMarks;
     this.FieldComponent = props.fieldComponent;
     this.FieldSizeComponent = props.fieldSizeComponent;
-    this.xSize = props.xSize;
-    this.ySize = props.ySize;
 
     this.state = {
       fieldState: Array.from({ length: this.ySize }).map(() =>
@@ -124,7 +130,6 @@ export class InteractiveField extends React.Component<
   }
 
   public onMouseUp(name: string, value: number) {
-    console.log(value);
     switch (name) {
       case "x": {
         this.setState((state) => {
@@ -134,6 +139,7 @@ export class InteractiveField extends React.Component<
                 state.fieldState[Number(item)].pop()
               );
               this.xSize -= 1;
+              this.setStateofInputByName(name, this.xSize);
             }
           }
           if (value > this.xSize) {
@@ -142,9 +148,9 @@ export class InteractiveField extends React.Component<
                 state.fieldState[Number(item)].push("")
               );
               this.xSize += 1;
+              this.setStateofInputByName(name, this.xSize);
             }
           }
-          console.log(state.fieldState);
           return {
             fieldState: state.fieldState,
           };
@@ -156,6 +162,7 @@ export class InteractiveField extends React.Component<
           if (value < this.ySize) {
             this.ySize = value;
             state.fieldState.length = this.ySize;
+            this.setStateofInputByName(name, this.ySize);
           }
           if (value > this.ySize) {
             while (value > this.ySize) {
@@ -164,8 +171,8 @@ export class InteractiveField extends React.Component<
                 state.fieldState[this.ySize].push("");
               }
               this.ySize += 1;
+              this.setStateofInputByName(name, this.ySize);
             }
-            console.log(state.fieldState);
           }
           return {
             fieldState: state.fieldState,
@@ -179,6 +186,7 @@ export class InteractiveField extends React.Component<
   render() {
     const FieldComponent = this.FieldComponent;
     const FieldSizeComponent = this.FieldSizeComponent;
+    console.log(this.state);
     return (
       <ColumnWrapper>
         <FieldComponent
