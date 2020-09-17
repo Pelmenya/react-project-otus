@@ -7,7 +7,7 @@ render(
   <InteractiveField
     xSize={10}
     ySize={10}
-    bgImageId={99}
+    bgImageId={1}
     playerMarks={" "}
     fieldComponent={Field}
     fieldSizeComponent={FieldSize}

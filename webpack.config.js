@@ -10,6 +10,7 @@ module.exports = {
     extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
     alias: {
       types: path.resolve(__dirname, "src/lesson8/types"),
+      utils: path.resolve(__dirname, "src/lesson8/utils"),
     },
   },
   output: {

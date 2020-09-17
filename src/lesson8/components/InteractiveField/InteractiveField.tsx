@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/core";
 
-import { getAsyncUrl } from "../../utils/utils";
+import { getAsyncUrl } from "utils/utils";
 
 const ColumnWrapperClass = css`
   border: 2px solid #ec8928;
