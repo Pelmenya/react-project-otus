@@ -12,6 +12,7 @@ export const withRealField = () => (
   <InteractiveField
     xSize={number("xSize", 15)}
     ySize={number("ySize", 15)}
+    bgImageId={1}
     playerMarks={players}
     fieldComponent={Field}
     fieldSizeComponent={FieldSize}
