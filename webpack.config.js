@@ -4,13 +4,13 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpackRules = require("./webpackRules");
 
 module.exports = {
-  entry: "./src/lesson8/index.tsx",
+  entry: "./src/lesson9/index.tsx",
   devtool: "source-map",
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
     alias: {
-      types: path.resolve(__dirname, "src/lesson8/types"),
-      utils: path.resolve(__dirname, "src/lesson8/utils"),
+      types: path.resolve(__dirname, "src/lesson9/types"),
+      utils: path.resolve(__dirname, "src/lesson9/utils"),
     },
   },
   output: {

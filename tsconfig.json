@@ -2,8 +2,8 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "types/*": ["src/lesson8/types/*"],
-      "utils/*": ["src/lesson8/utils/*"]
+      "types/*": ["src/lesson9/types/*"],
+      "utils/*": ["src/lesson9/utils/*"],
     },
     "target": "es5",
     "module": "commonjs",
