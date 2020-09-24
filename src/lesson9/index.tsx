@@ -1,17 +1,16 @@
 import React from "react";
 import { render } from "react-dom";
-import styled from "@emotion/styled";
 
-import { GameSettingsForm, SettingsForm } from "./components";
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
+import { InteractiveField, Field, FieldSize } from "./components";
 
 render(
-  <Wrapper>
-    <SettingsForm FormComponent={GameSettingsForm} />
-  </Wrapper>,
+  <InteractiveField
+    xSize={10}
+    ySize={10}
+    bgImageId={1}
+    playerMarks={" "}
+    fieldComponent={Field}
+    fieldSizeComponent={FieldSize}
+  />,
   document.getElementById("root")
 );

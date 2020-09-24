@@ -19,7 +19,7 @@ export const nonFilledCell = () => [
 export const filledCell = () => [
   <Cell
     onClick={action("Cell clicked(jsx")}
-    filled={text("living Cell", "☺")}
+    filled={text("living Cell", " ")}
     x={number("x", 1)}
     y={number("y", 23)}
     key="jsx"

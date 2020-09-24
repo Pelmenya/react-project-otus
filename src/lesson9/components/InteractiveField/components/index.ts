@@ -1,2 +1,2 @@
-export * from "./GameField";
+export * from "./Field";
 export * from "./FieldSize";

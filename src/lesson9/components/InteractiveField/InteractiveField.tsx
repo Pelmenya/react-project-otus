@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/core";
 
-import { getAsyncUrl, getRandomMatrix2D } from "utils/utils";
+import { getAsyncUrl } from "utils/utils";
 
 const ColumnWrapperClass = css`
   border: 2px solid #ec8928;
@@ -14,21 +14,8 @@ const ColumnWrapperClass = css`
   box-sizing: border-box;
   background-size: cover;
   padding 10px 10px 10px 10px;
-  width: calc(95vw - 230px);
-  min-height: ${window.screen.height * 0.8}px;
-`;
-
-const Title = styled.div`
-  padding: 10px;
-  border: 2px solid lightgray;
-  margin-bottom: 30px;
-  color: #fff;
-  font-size: 36px;
-  background-blend-mode: multiply;
-  background-color: rgba(0, 0, 0, 0.7);
-  box-shadow: 0px 16px 30px 0px #200;
-  border-radius: 5px;
-  font-family: Helvetica, sans-serif;
+  width: 100%;
+  height: 100%;
 `;
 
 const ColumnWrapper = styled.div`
@@ -69,10 +56,6 @@ interface InteractiveFieldProps {
    */
   playerMarks: string;
   /**
-   * Component fill percentage
-   */
-  fillPercentage: number;
-  /**
    * id background-image game container
    */
   bgImageId: number;
@@ -106,7 +89,6 @@ export class InteractiveField extends React.Component<
   private xSize: number;
   private ySize: number;
   private playerMarks: string;
-  private fillPercentage: number;
   private FieldComponent: FieldComponentInterface;
   private FieldSizeComponent: FieldSizeComponentIterface;
   private stateUpdate: boolean;
@@ -139,17 +121,13 @@ export class InteractiveField extends React.Component<
     this.FieldSizeComponent = props.fieldSizeComponent;
     this.xSize = props.xSize;
     this.ySize = props.ySize;
-    this.fillPercentage = props.fillPercentage;
     this._isMounted = false;
     this.stateUpdate = false;
     this.state = {
       bgImageUrl: "",
-      fieldState: getRandomMatrix2D(
-        this.ySize,
-        this.xSize,
-        this.fillPercentage,
-        this.playerMarks
-      ),
+      fieldState: Array.from({ length: this.ySize }).map(() =>
+        Array.from({ length: this.xSize }).fill("")
+      ) as string[][],
       fieldSizeState: [
         { type: "number", size: this.xSize, name: "x" },
         { type: "number", size: this.ySize, name: "y" },
@@ -193,6 +171,7 @@ export class InteractiveField extends React.Component<
               );
               this.xSize -= 1;
               this.setStateofInputByName(name, this.xSize);
+              this.setImage();
               this.stateUpdate = true;
             }
           }
@@ -203,10 +182,10 @@ export class InteractiveField extends React.Component<
               );
               this.xSize += 1;
               this.setStateofInputByName(name, this.xSize);
+              this.setImage();
               this.stateUpdate = true;
             }
           }
-          if (this.stateUpdate) this.setImage();
           return {
             fieldState: state.fieldState,
             fieldSizeState: state.fieldSizeState,
@@ -221,6 +200,7 @@ export class InteractiveField extends React.Component<
             state.fieldState.length = this.ySize;
             this.setStateofInputByName(name, this.ySize);
             this.stateUpdate = true;
+            this.setImage();
           }
           if (value > this.ySize) {
             while (value > this.ySize) {
@@ -230,10 +210,10 @@ export class InteractiveField extends React.Component<
               }
               this.ySize += 1;
               this.setStateofInputByName(name, this.ySize);
+              this.setImage();
               this.stateUpdate = true;
             }
           }
-          if (this.stateUpdate) this.setImage();
           return {
             fieldState: state.fieldState,
             fieldSizeState: state.fieldSizeState,
@@ -274,9 +254,9 @@ export class InteractiveField extends React.Component<
     const FieldComponent = this.FieldComponent;
     const FieldSizeComponent = this.FieldSizeComponent;
     const { bgImageUrl } = this.state;
+    console.log(this.props.bgImageId);
     return (
       <ColumnWrapper style={{ backgroundImage: `url(${bgImageUrl})` }}>
-        <Title>{"Game of Life"}</Title>
         <FieldComponent
           key={"fieldComponent"}
           field={this.state.fieldState}

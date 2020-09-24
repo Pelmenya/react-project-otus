@@ -9,20 +9,11 @@ exports[`Cell renders button for dead cell 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
+  margin: 1px;
   text-align: center;
   box-sizing: border-box;
   cursor: pointer;
-  text-align: center;
-  vertical-align: top;
-  padding-left: 0px;
-  padding-right: 0px;
-  padding-top: 2px;
-  padding-bottom: 0px;
-  font-size: 10px;
-  line-height: 1;
-  -webkit-transition: -webkit-transform 1s,background-color 1s;
-  -webkit-transition: transform 1s,background-color 1s;
-  transition: transform 1s,background-color 1s;
+  line-heigts: 0.8;
   background-color: #fff;
 }
 
@@ -41,24 +32,12 @@ exports[`Cell renders button for live cell 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
+  margin: 1px;
   text-align: center;
   box-sizing: border-box;
   cursor: pointer;
-  text-align: center;
-  vertical-align: top;
-  padding-left: 0px;
-  padding-right: 0px;
-  padding-top: 2px;
-  padding-bottom: 0px;
-  font-size: 10px;
-  line-height: 1;
-  -webkit-transition: -webkit-transform 1s,background-color 1s;
-  -webkit-transition: transform 1s,background-color 1s;
-  transition: transform 1s,background-color 1s;
+  line-heigts: 0.8;
   background-color: #00ff00;
-  -webkit-transform: rotate(360deg);
-  -ms-transform: rotate(360deg);
-  transform: rotate(360deg);
 }
 
 <button

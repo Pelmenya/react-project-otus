@@ -9,18 +9,11 @@ const CellClass = css`
   height: 15px;
   border: 1px solid #000;
   display: inline-flex;
+  margin: 1px;
   text-align: center;
   box-sizing: border-box;
   cursor: pointer;
-  text-align: center;
-  vertical-align: top;
-  padding-left: 0px;
-  padding-right: 0px;
-  padding-top: 2px;
-  padding-bottom: 0px;
-  font-size: 10px;
-  line-height: 1;
-  transition: transform 1s, background-color 1s;
+  line-heigts: 0.8;
 `;
 
 const CellDeadClass = css`
@@ -29,7 +22,6 @@ const CellDeadClass = css`
 
 const CellLiveClass = css`
   background-color: #00ff00;
-  transform: rotate(360deg);
 `;
 
 interface Props {

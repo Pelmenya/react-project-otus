@@ -2,14 +2,14 @@ import React from "react";
 import { mount } from "enzyme";
 import renderer from "react-test-renderer";
 
-import { GameField } from "./GameField";
+import { Field } from "./Field";
 
 describe("Field", () => {
   it("renders cells for passed empty field", () => {
     expect(
       renderer
         .create(
-          <GameField
+          <Field
             field={[
               ["", ""],
               ["", ""],
@@ -24,7 +24,7 @@ describe("Field", () => {
     expect(
       renderer
         .create(
-          <GameField
+          <Field
             field={[
               ["x", "o"],
               ["o", ""],
@@ -37,7 +37,7 @@ describe("Field", () => {
   });
   it("renders filled cells", () => {
     const field = mount(
-      <GameField
+      <Field
         field={[
           ["x", "o"],
           ["o", ""],
@@ -58,9 +58,7 @@ describe("Field", () => {
   });
   it("passed onClick inside cells", () => {
     const onClick = jest.fn();
-    const field = mount(
-      <GameField field={[["", "x", "o"]]} onClick={onClick} />
-    );
+    const field = mount(<Field field={[["", "x", "o"]]} onClick={onClick} />);
     field.find("button:empty").simulate("click");
     expect(onClick).toHaveBeenCalledWith(0, 0);
   });
