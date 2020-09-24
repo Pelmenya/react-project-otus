@@ -1,6 +1,6 @@
-export interface PlayerSettings {
+export interface PlayerSettingsFormResult {
   name: string;
-  symbol: string;
+  playerMarks: string;
   colorLiveCell: string;
   colorDeadCell: string;
   xSize: number;
@@ -13,10 +13,6 @@ export interface PlayerSettings {
   idImage: number;
 }
 
-export interface GameSettingsFormResult {
-  player: PlayerSettings;
-}
-
 export interface GameSettingsFormProps {
-  onSubmit: (settings: GameSettingsFormResult) => void;
+  onSubmit: (settings: PlayerSettingsFormResult) => void;
 }

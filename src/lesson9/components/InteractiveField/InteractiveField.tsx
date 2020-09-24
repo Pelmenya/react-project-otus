@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/core";
 
-import { getAsyncUrl } from "utils/utils";
+import { getAsyncUrl, getRandomMatrix2D } from "utils/utils";
 
 const ColumnWrapperClass = css`
   border: 2px solid #ec8928;
@@ -14,8 +14,21 @@ const ColumnWrapperClass = css`
   box-sizing: border-box;
   background-size: cover;
   padding 10px 10px 10px 10px;
-  width: ${window.screen.width * 0.9}px;
-  height: ${window.screen.height * 0.9}px;
+  width: calc(95vw - 230px);
+  min-height: ${window.screen.height * 0.8}px;
+`;
+
+const Title = styled.div`
+  padding: 10px;
+  border: 2px solid lightgray;
+  margin-bottom: 30px;
+  color: #fff;
+  font-size: 36px;
+  background-blend-mode: multiply;
+  background-color: rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 16px 30px 0px #200;
+  border-radius: 5px;
+  font-family: Helvetica, sans-serif;
 `;
 
 const ColumnWrapper = styled.div`
@@ -56,6 +69,10 @@ interface InteractiveFieldProps {
    */
   playerMarks: string;
   /**
+   * Component fill percentage
+   */
+  fillPercentage: number;
+  /**
    * id background-image game container
    */
   bgImageId: number;
@@ -89,6 +106,7 @@ export class InteractiveField extends React.Component<
   private xSize: number;
   private ySize: number;
   private playerMarks: string;
+  private fillPercentage: number;
   private FieldComponent: FieldComponentInterface;
   private FieldSizeComponent: FieldSizeComponentIterface;
   private stateUpdate: boolean;
@@ -121,13 +139,17 @@ export class InteractiveField extends React.Component<
     this.FieldSizeComponent = props.fieldSizeComponent;
     this.xSize = props.xSize;
     this.ySize = props.ySize;
+    this.fillPercentage = props.fillPercentage;
     this._isMounted = false;
     this.stateUpdate = false;
     this.state = {
       bgImageUrl: "",
-      fieldState: Array.from({ length: this.ySize }).map(() =>
-        Array.from({ length: this.xSize }).fill("")
-      ) as string[][],
+      fieldState: getRandomMatrix2D(
+        this.ySize,
+        this.xSize,
+        this.fillPercentage,
+        this.playerMarks
+      ),
       fieldSizeState: [
         { type: "number", size: this.xSize, name: "x" },
         { type: "number", size: this.ySize, name: "y" },
@@ -254,7 +276,7 @@ export class InteractiveField extends React.Component<
     const { bgImageUrl } = this.state;
     return (
       <ColumnWrapper style={{ backgroundImage: `url(${bgImageUrl})` }}>
-        <h1>{"Game of Life"}</h1>
+        <Title>{"Game of Life"}</Title>
         <FieldComponent
           key={"fieldComponent"}
           field={this.state.fieldState}

@@ -19,7 +19,7 @@ const FieldComponent = styled.div`
   ${FieldClass};
 `;
 
-export const Field: FC<FieldProps> = ({ field, onClick }) => (
+export const GameField: FC<FieldProps> = ({ field, onClick }) => (
   <FieldComponent>
     {field.map((row, y) => [
       ...row.map((filled: string, x) => (

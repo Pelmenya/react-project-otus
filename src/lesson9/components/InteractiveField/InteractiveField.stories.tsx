@@ -1,6 +1,6 @@
 import React from "react";
 import { withKnobs, number } from "@storybook/addon-knobs";
-import { Field, FieldSize } from "./components";
+import { GameField, FieldSize } from "./components";
 import { InteractiveField } from "./InteractiveField";
 
 export default {
@@ -13,9 +13,10 @@ export const withRealField = () => (
   <InteractiveField
     xSize={number("xSize", 15)}
     ySize={number("ySize", 15)}
+    fillPercentage={50}
     bgImageId={1}
     playerMarks={players}
-    fieldComponent={Field}
+    fieldComponent={GameField}
     fieldSizeComponent={FieldSize}
   />
 );

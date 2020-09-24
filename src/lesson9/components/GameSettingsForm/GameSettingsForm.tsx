@@ -3,21 +3,22 @@ import { GameSettingsFormProps } from "types/formSettings";
 import { Formik, Form, Field } from "formik";
 import { ClassNames, css } from "@emotion/core";
 
+import { InteractiveField, GameField, FieldSize } from "../InteractiveField";
+import { PlayerSettingsFormResult } from "types/formSettings";
+
 const initialFormProps = {
-  player: {
-    name: "BatMan",
-    symbol: "😉",
-    colorLiveCell: "#00ff00",
-    colorDeadCell: "#ffffff",
-    xSize: 15,
-    ySize: 15,
-    fillPercentage: 50,
-    speed: 1,
-    speedPause: false,
-    stop: false,
-    reset: false,
-    idImage: 1,
-  },
+  name: "BatMan",
+  playerMarks: "😉",
+  colorLiveCell: "#00ff00",
+  colorDeadCell: "#ffffff",
+  xSize: 15,
+  ySize: 15,
+  fillPercentage: 50,
+  speed: 1,
+  speedPause: false,
+  stop: false,
+  reset: false,
+  idImage: 1,
 } as const;
 
 const FieldWrapper = `
@@ -147,24 +148,13 @@ interface FormProps {
   FormComponent: ComponentType<GameSettingsFormProps>;
 }
 
-const FormWrapperClass = css`
+const FormWrapperClass = `
   display: flex;
-  flex-direction: column;
 `;
 
-export const SettingsForm: React.FC<FormProps> = ({ FormComponent }) => {
-  const [result, setResult] = useState({});
-  return (
-    <ClassNames>
-      {({ css }) => (
-        <div className={css(FormWrapperClass)}>
-          <FormComponent onSubmit={setResult} />
-          <pre>{JSON.stringify(result, null, 2)}</pre>
-        </div>
-      )}
-    </ClassNames>
-  );
-};
+const FormWrapperClassColumn = `
+  flex-direction: column;
+`;
 
 export class GameSettingsForm extends React.Component<
   GameSettingsFormProps,
@@ -182,22 +172,18 @@ export class GameSettingsForm extends React.Component<
               <fieldset className={css(FieldSetClass)}>
                 <legend className={css(LegendClass)}>Game Settings</legend>
                 <div className={css(FieldWrapper + FieldWrapperColumn)}>
-                  <label className={css(LabelClass)} htmlFor="player.name">
+                  <label className={css(LabelClass)} htmlFor="name">
                     Your name
                   </label>
-                  <Field
-                    className={css(InputClass)}
-                    type="text"
-                    name="player.name"
-                  />
+                  <Field className={css(InputClass)} type="text" name="name" />
                 </div>
                 <div className={css(FieldWrapper)}>
-                  <label className={css(LabelClass)} htmlFor="player.symbol">
+                  <label className={css(LabelClass)} htmlFor="playerMarks">
                     Cell icon
                   </label>
                   <Field
                     className={css(InputClass + InputHeightModifyClass)}
-                    name="player.symbol"
+                    name="playerMarks"
                     as="select"
                   >
                     <option>😉</option>
@@ -208,75 +194,66 @@ export class GameSettingsForm extends React.Component<
                   </Field>
                 </div>
                 <div className={css(FieldWrapper)}>
-                  <label
-                    className={css(LabelClass)}
-                    htmlFor="player.colorLiveCell"
-                  >
+                  <label className={css(LabelClass)} htmlFor="colorLiveCell">
                     Color of live cell
                   </label>
                   <Field
                     className={css(InputClass + InputHeightModifyClass)}
                     type="color"
-                    name="player.colorLiveCell"
+                    name="colorLiveCell"
                   />
                 </div>
                 <div className={css(FieldWrapper)}>
-                  <label
-                    className={css(LabelClass)}
-                    htmlFor="player.colorDeadCell"
-                  >
+                  <label className={css(LabelClass)} htmlFor="colorDeadCell">
                     Color of dead cell
                   </label>
                   <Field
                     className={css(InputClass + InputHeightModifyClass)}
                     type="color"
-                    name="player.colorDeadCell"
+                    name="colorDeadCell"
                   />
                 </div>
                 <div className={css(FieldWrapper)}>
-                  <label className={css(LabelClass)} htmlFor="player.xSize">
+                  <label className={css(LabelClass)} htmlFor="xSize">
                     Size axis X
                   </label>
                   <Field
                     className={css(InputClass + InputHeightModifyClass)}
                     type="number"
-                    name="player.xSize"
+                    name="xSize"
                     min={5}
                   />
                 </div>
                 <div className={css(FieldWrapper)}>
-                  <label className={css(LabelClass)} htmlFor="player.ySize">
+                  <label className={css(LabelClass)} htmlFor="ySize">
                     Size axis Y
                   </label>
                   <Field
                     className={css(InputClass + InputHeightModifyClass)}
                     type="number"
-                    name="player.ySize"
+                    name="ySize"
                     min={5}
                   />
                 </div>
                 <div className={css(FieldWrapper)}>
-                  <label
-                    className={css(LabelClass)}
-                    htmlFor="player.fillPercentage"
-                  >
+                  <label className={css(LabelClass)} htmlFor="fillPercentage">
                     Fill percentage
                   </label>
                   <Field
                     className={css(InputClass + InputHeightModifyClass)}
                     type="number"
-                    name="player.fillPercentage"
+                    name="fillPercentage"
                     min={0}
                   />
                 </div>
                 <div className={css(FieldWrapper)}>
-                  <label className={css(LabelClass)} htmlFor="player.speed">
+                  <label className={css(LabelClass)} htmlFor="speed">
                     Speed
                   </label>
                   <Field
                     className={css(InputClass + InputHeightModifyClass)}
                     type="number"
-                    name="player.speed"
+                    name="speed"
                     min={1}
                     max={5}
                   />
@@ -288,7 +265,7 @@ export class GameSettingsForm extends React.Component<
                   <Field
                     className={css(InputClass + InputHeightModifyClass)}
                     type="number"
-                    name="player.idImage"
+                    name="idImage"
                     min={1}
                     max={99}
                   />
@@ -302,3 +279,37 @@ export class GameSettingsForm extends React.Component<
     );
   }
 }
+
+export const SettingsForm: React.FC<FormProps> = ({ FormComponent }) => {
+  const [result, setResult] = useState({} as PlayerSettingsFormResult);
+
+  function renderInteractiveField(props: PlayerSettingsFormResult) {
+    if (JSON.stringify(props, null, 2) !== "{}")
+      return (
+        <InteractiveField
+          xSize={props.xSize}
+          ySize={props.ySize}
+          fillPercentage={props.fillPercentage}
+          bgImageId={props.idImage}
+          playerMarks={props.playerMarks}
+          fieldComponent={GameField}
+          fieldSizeComponent={FieldSize}
+        />
+      );
+    return;
+  }
+
+  return (
+    <ClassNames>
+      {({ css }) => (
+        <div className={css(FormWrapperClass)}>
+          <div className={css(FormWrapperClass + FormWrapperClassColumn)}>
+            <FormComponent onSubmit={setResult} />
+            <pre>{JSON.stringify(result, null, 2)}</pre>
+          </div>
+          {renderInteractiveField(result)}
+        </div>
+      )}
+    </ClassNames>
+  );
+};
