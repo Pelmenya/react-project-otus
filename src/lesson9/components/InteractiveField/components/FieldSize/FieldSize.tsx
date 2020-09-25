@@ -11,6 +11,10 @@ const FieldSizeClass = css`
   display: inline-flex;
   box-sizing: border-box;
   padding 5px 5px 5px 5px;
+  background-blend-mode: multiply;
+  background-color: rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 16px 30px 0px #200;
+
 `;
 
 const FieldSizeItem = styled.div`
