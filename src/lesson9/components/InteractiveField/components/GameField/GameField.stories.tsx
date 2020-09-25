@@ -1,7 +1,7 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 import { withKnobs, object } from "@storybook/addon-knobs";
-import { Field } from "./Field";
+import { GameField } from "./GameField";
 
 export default {
   title: "Lesson8/ Field",
@@ -11,7 +11,7 @@ export default {
 const elementClickedJsx = action("Cell clicked (jsx)");
 
 export const emptyField = () => [
-  <Field
+  <GameField
     key="jsx"
     onClick={elementClickedJsx}
     field={object("field", [
@@ -23,7 +23,7 @@ export const emptyField = () => [
 ];
 
 export const nonEmptyField = () => [
-  <Field
+  <GameField
     key="jsx"
     onClick={elementClickedJsx}
     field={object("field", [
