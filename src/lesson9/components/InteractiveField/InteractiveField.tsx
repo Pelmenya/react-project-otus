@@ -1,22 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { css } from "@emotion/core";
 
 import { getAsyncUrl, getRandomMatrix2D } from "utils/utils";
-
-const ColumnWrapperClass = css`
-  border: 2px solid #ec8928;
-  border-radius: 2px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  jystify-content: space-between;
-  box-sizing: border-box;
-  background-size: cover;
-  padding 10px 10px 10px 10px;
-  width: calc(95vw - 230px);
-  min-height: ${window.screen.height * 0.8}px;
-`;
 
 const Title = styled.div`
   padding: 10px;
@@ -32,7 +17,17 @@ const Title = styled.div`
 `;
 
 const ColumnWrapper = styled.div`
-  ${ColumnWrapperClass};
+  border: 2px solid #ec8928;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  jystify-content: space-between;
+  box-sizing: border-box;
+  background-size: cover;
+  padding 10px 10px 10px 10px;
+  width: calc(95vw - 230px);
+  min-height: ${window.screen.height * 0.8}px;
 `;
 
 type FieldComponentInterface = React.FC<{
@@ -274,20 +269,23 @@ export class InteractiveField extends React.Component<
     const FieldComponent = this.FieldComponent;
     const FieldSizeComponent = this.FieldSizeComponent;
     const { bgImageUrl } = this.state;
-    return (
-      <ColumnWrapper style={{ backgroundImage: `url(${bgImageUrl})` }}>
+    return [
+      <ColumnWrapper
+        key={"fieldWrapper"}
+        style={{ backgroundImage: `url(${bgImageUrl})` }}
+      >
         <Title>{"Game of Life"}</Title>
         <FieldComponent
           key={"fieldComponent"}
           field={this.state.fieldState}
           onClick={this.onClick}
         />
-        <FieldSizeComponent
-          key={"fieldSizeComponent"}
-          inputs={this.state.fieldSizeState}
-          onMouseUp={this.onMouseUp}
-        />
-      </ColumnWrapper>
-    );
+      </ColumnWrapper>,
+      <FieldSizeComponent
+        key={"fieldSizeComponent"}
+        inputs={this.state.fieldSizeState}
+        onMouseUp={this.onMouseUp}
+      />,
+    ];
   }
 }

@@ -11,6 +11,7 @@ module.exports = {
     alias: {
       types: path.resolve(__dirname, "src/lesson9/types"),
       utils: path.resolve(__dirname, "src/lesson9/utils"),
+      components: path.resolve(__dirname, "src/lesson9/components"),
     },
   },
   output: {
