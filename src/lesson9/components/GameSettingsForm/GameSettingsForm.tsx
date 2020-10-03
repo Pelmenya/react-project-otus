@@ -29,7 +29,10 @@ interface FormProps {
   FormComponent: ComponentType<GameSettingsFormProps>;
 }
 
-export class GameSettingsForm extends React.Component<GameSettingsFormProps, {}> {
+export class GameSettingsForm extends React.Component<
+  GameSettingsFormProps,
+  {}
+> {
   private initialFormSettings: PlayerSettingsFormInitial;
 
   private getInitialFormValues(): PlayerSettingsFormResult {
@@ -56,13 +59,20 @@ export class GameSettingsForm extends React.Component<GameSettingsFormProps, {}>
             {item.type === "select" ? (
               <InputHalfFormik name={item.name} type={item.type} as={item.type}>
                 {item.options ? (
-                  item.options.map((option) => <option key={option}> {option}</option>)
+                  item.options.map((option) => (
+                    <option key={option}> {option}</option>
+                  ))
                 ) : (
                   <option key={"jsx"}> {item.value}</option>
                 )}
               </InputHalfFormik>
             ) : (
-              <InputHalfFormik name={item.name} type={item.type} min={item.min} max={item.max} />
+              <InputHalfFormik
+                name={item.name}
+                type={item.type}
+                min={item.min}
+                max={item.max}
+              />
             )}
           </FieldWrapper>
         );
@@ -78,7 +88,10 @@ export class GameSettingsForm extends React.Component<GameSettingsFormProps, {}>
 
   render() {
     return (
-      <Formik initialValues={this.getInitialFormValues()} onSubmit={this.props.onSubmit}>
+      <Formik
+        initialValues={this.getInitialFormValues()}
+        onSubmit={this.props.onSubmit}
+      >
         <FormFormik>
           <FieldSet>
             <Legend>Game Settings</Legend>
@@ -92,10 +105,7 @@ export class GameSettingsForm extends React.Component<GameSettingsFormProps, {}>
 }
 
 export const SettingsForm: React.FC<FormProps> = ({ FormComponent }) => {
-  const [
-    result,
-    setResult,
-  ] = useState({} as PlayerSettingsFormResult);
+  const [result, setResult] = useState({} as PlayerSettingsFormResult);
 
   function renderInteractiveField(props: PlayerSettingsFormResult) {
     if (Object.keys(props).length !== 0)
@@ -111,7 +121,12 @@ export const SettingsForm: React.FC<FormProps> = ({ FormComponent }) => {
           fieldFillComponent={FieldInputs}
         />
       );
-    return <FormComponent initialFormSettings={initialFormSettings} onSubmit={setResult} />;
+    return (
+      <FormComponent
+        initialFormSettings={initialFormSettings}
+        onSubmit={setResult}
+      />
+    );
   }
   return <Wrapper>{renderInteractiveField(result)}</Wrapper>;
 };

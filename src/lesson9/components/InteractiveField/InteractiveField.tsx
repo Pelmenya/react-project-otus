@@ -1,14 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import {
-  FormItem,
-  Legend,
-  FieldSet,
-  Button,
-  Wrapper,
-  WrapperColumn
-} from "components/index";
+import { FormItem, Legend, FieldSet, Button } from "components/index";
 
 import { getAsyncUrl, getRandomMatrix2D } from "utils/utils";
 
@@ -114,6 +107,7 @@ export class InteractiveField extends React.Component<
   InteractiveFieldProps,
   InteractiveFieldState
 > {
+  private initialProps: InteractiveFieldProps;
   private xSize: number;
   private ySize: number;
   private playerMarks: string;
@@ -122,7 +116,6 @@ export class InteractiveField extends React.Component<
   private FieldSizeComponent: FieldInputsComponentIterface;
   private FieldFillComponent: FieldInputsComponentIterface;
   private stateUpdate: boolean;
-  _isMounted: boolean;
 
   private setStateofInputByName(
     name: string,
@@ -135,21 +128,20 @@ export class InteractiveField extends React.Component<
 
   private setImage() {
     getAsyncUrl(this.props.bgImageId).then((url: string) => {
-      if (this._isMounted) {
-        const img = new Image();
-        img.onload = () => {
-          this.setState({
-            bgImageUrl: url,
-          });
-        };
-        img.onerror = () => this.setImage();
-        img.src = url;
-      }
+      const img = new Image();
+      img.onload = () => {
+        this.setState({
+          bgImageUrl: url,
+        });
+      };
+      img.onerror = () => this.setImage();
+      img.src = url;
     });
   }
 
   constructor(props: InteractiveFieldProps) {
     super(props);
+    this.initialProps = props;
     this.playerMarks = props.playerMarks;
     this.FieldComponent = props.fieldComponent;
     this.FieldSizeComponent = props.fieldSizeComponent;
@@ -157,7 +149,6 @@ export class InteractiveField extends React.Component<
     this.xSize = props.xSize;
     this.ySize = props.ySize;
     this.fillPercentage = props.fillPercentage;
-    this._isMounted = false;
     this.stateUpdate = false;
     this.state = {
       bgImageUrl: "",
@@ -179,6 +170,7 @@ export class InteractiveField extends React.Component<
       ],
     };
     this.onClick = this.onClick.bind(this);
+    this.onClickReset = this.onClickReset.bind(this);
     this.onMouseUpFieldInputs = this.onMouseUpFieldInputs.bind(this);
     this.onMouseUpFieldFill = this.onMouseUpFieldFill.bind(this);
   }
@@ -202,6 +194,36 @@ export class InteractiveField extends React.Component<
         fieldState: fieldStateCopy,
         fieldSizeState: state.fieldSizeState,
         fieldFillState: state.fieldFillState,
+      };
+    });
+  }
+  // не работает, значения на экране не меняются у инпутов
+  public onClickReset() {
+    this.stateUpdate = true;
+    console.log(this.state);
+    this.onMouseUpFieldFill("Fill %", 15);
+    this.setState(() => {
+      return {
+        xSize: this.initialProps.xSize,
+        ySize: this.initialProps.ySize,
+        fillPercentage: this.initialProps.fillPercentage,
+        fieldState: getRandomMatrix2D(
+          this.initialProps.xSize,
+          this.initialProps.ySize,
+          this.initialProps.fillPercentage,
+          this.initialProps.playerMarks
+        ),
+        fieldSizeState: [
+          { type: "number", size: this.initialProps.xSize, name: "X" },
+          { type: "number", size: this.initialProps.xSize, name: "Y" },
+        ],
+        fieldFillState: [
+          {
+            type: "number",
+            size: this.initialProps.fillPercentage,
+            name: "Fill %",
+          },
+        ],
       };
     });
   }
@@ -315,7 +337,6 @@ export class InteractiveField extends React.Component<
   }
 
   componentDidMount() {
-    this._isMounted = true;
     this.setImage();
   }
 
@@ -334,10 +355,6 @@ export class InteractiveField extends React.Component<
     if (prevProps.bgImageId !== this.props.bgImageId) {
       this.setImage();
     }
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
   }
 
   render() {
@@ -371,7 +388,9 @@ export class InteractiveField extends React.Component<
             onMouseUp={this.onMouseUpFieldFill}
           />
         </FieldSet>
-        <Button type="button">Reset</Button>
+        <Button onClick={this.onClickReset} type="button">
+          Reset
+        </Button>
       </FormItem>,
     ];
   }

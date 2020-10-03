@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input counter renders input for size field 1`] = `
+.emotion-0 {
+  border: 1px solid #164cb5;
+  border-radius: 3px;
+  margin-right: 10px;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 5px 5px 5px 5px;
+  padding: 0;
+  height: 25px;
+  width: 45px;
+}
+
+.emotion-0:last-of-type {
+  margin-right: 0px;
+}
+
+<input
+  className="emotion-0"
+  defaultValue={10}
+  max={100}
+  min={0}
+  name="sizeAxis"
+  onMouseUp={[Function]}
+  type="number"
+/>
+`;
