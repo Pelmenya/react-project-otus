@@ -18,7 +18,7 @@ export const FormClass = css`
   font-family: Helvetica, sans-serif;
 `;
 
-export const InputFull = css`
+export const InputFullClass = css`
   border: 1px solid #164cb5;
   border-radius: 3px;
   margin-right: 10px;
@@ -30,8 +30,8 @@ export const InputFull = css`
   };
 `;
 
-export const InputHalf = css`
-  ${InputFull}
+export const InputHalfClass = css`
+  ${InputFullClass}
   padding: 0;
   height: 25px;
   width: 45px;
@@ -39,13 +39,50 @@ export const InputHalf = css`
 
 export const Wrapper = styled.div`
   display: flex;
+  align-items: flex-start;
 `;
 
 export const WrapperColumn = styled(Wrapper)`
   flex-direction: column;
+  align-items: center;
 `;
 
-export const ButtonStart = styled.button`
+export const Button = styled.button`
+  width: 115px;
+  height: 30px;
+  font-family: Helvetica, sans-serif;
+  border-radius: 3px;
+  border:none;
+  background-color: #ec8928;
+  text-align: center;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 0;
+  padding-bottom: 0;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background 0.5s;
+  box-shadow: 0 0 0 #ec8928;
+    &:hover {
+      animation: none;
+      background: #ec8928 radial-gradient(circle, transparent 1%, #ec8928 1%) center/15000%;
+      color: #fff;
+    }
+    &:active {
+      background-color: #fff;
+      background-size: 100%;
+      transition: background 0s;
+    }
+  }
+`;
+
+export const ButtonStart = styled(Button)`
   @-webkit-keyframes pulse {
     0% {
       -webkit-box-shadow: 0 0 0 0 white;
@@ -72,39 +109,7 @@ export const ButtonStart = styled.button`
       box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
     }
   }
-
-  width: 115px;
-  height: 30px;
-  font-family: Helvetica, sans-serif;
-  border-radius: 3px;
-  border:none;
-  background-color: #ec8928;
-  text-align: center;
-  color: #fff;
-  font-size: 13px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 0;
-  padding-bottom: 0;
-  cursor: pointer;
-  transition: background 0.5s;
-  box-shadow: 0 0 0 #ec8928;
   animation: pulse 1.2s infinite;
-    &:hover {
-      animation: none;
-      background: #ec8928 radial-gradient(circle, transparent 1%, #ec8928 1%) center/15000%;
-      color: #fff;
-    }
-    &:active {
-      background-color: var(--white);
-      background-size: 100%;
-      transition: background 0s;
-    }
-}
 `;
 
 export const FieldSet = styled.fieldset`
@@ -135,14 +140,26 @@ export const Label = styled.label`
   margin-bottom: 3px;
 `;
 
+export const InputFull = styled.input`
+  ${InputFullClass}
+`;
+
+export const InputHalf = styled.input`
+  ${InputHalfClass}
+`;
+
+export const FormItem = styled.form`
+  ${FormClass}
+`;
+
 export const FormFormik = styled(Form)`
   ${FormClass}
 `;
 
 export const InputFullFormik = styled(Field)`
-  ${InputFull}
+  ${InputFullClass}
 `;
 
 export const InputHalfFormik = styled(Field)`
-  ${InputHalf}
+  ${InputHalfClass}
 `;

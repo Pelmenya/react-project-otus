@@ -16,14 +16,14 @@ export interface FieldProps {
   onClick: (x: number, y: number) => void;
 }
 
-export interface FieldAxisSizeProps {
+export interface FieldInputProps {
   type: string;
   size: number;
   name: string;
   onMouseUp: (name: string, value: number) => void;
 }
 
-export interface FieldSizeProps {
+export interface FieldInputsProps {
   inputs: Array<{
     type: string;
     size: number;

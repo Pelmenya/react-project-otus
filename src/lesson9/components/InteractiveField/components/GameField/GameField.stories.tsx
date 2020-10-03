@@ -4,7 +4,7 @@ import { withKnobs, object } from "@storybook/addon-knobs";
 import { GameField } from "./GameField";
 
 export default {
-  title: "Lesson8/ Field",
+  title: "Lesson9/ Field",
   decorators: [withKnobs],
 };
 

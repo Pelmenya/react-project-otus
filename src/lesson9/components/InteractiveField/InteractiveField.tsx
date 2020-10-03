@@ -1,6 +1,15 @@
 import React from "react";
 import styled from "@emotion/styled";
 
+import {
+  FormItem,
+  Legend,
+  FieldSet,
+  Button,
+  Wrapper,
+  WrapperColumn
+} from "components/index";
+
 import { getAsyncUrl, getRandomMatrix2D } from "utils/utils";
 
 const Title = styled.div`
@@ -28,7 +37,14 @@ const ColumnWrapper = styled.div`
   padding 10px 10px 10px 10px;
   width: calc(95vw - 230px);
   min-height: ${window.screen.height * 0.8}px;
+  margin-right 15px;
 `;
+
+type InputsType = Array<{
+  type: string;
+  size: number;
+  name: string;
+}>;
 
 type FieldComponentInterface = React.FC<{
   /**
@@ -41,12 +57,8 @@ type FieldComponentInterface = React.FC<{
   onClick: (x: number, y: number) => void;
 }>;
 
-type FieldSizeComponentIterface = React.FC<{
-  inputs: Array<{
-    type: string;
-    size: number;
-    name: string;
-  }>;
+type FieldInputsComponentIterface = React.FC<{
+  inputs: InputsType;
   onMouseUp: (name: string, value: number) => void;
 }>;
 
@@ -78,7 +90,11 @@ interface InteractiveFieldProps {
   /**
    * Component to render game control size field
    */
-  fieldSizeComponent: FieldSizeComponentIterface;
+  fieldSizeComponent: FieldInputsComponentIterface;
+  /**
+   * Component to render game control fill percentage field
+   */
+  fieldFillComponent: FieldInputsComponentIterface;
 }
 
 interface InteractiveFieldState {
@@ -86,12 +102,12 @@ interface InteractiveFieldState {
    * Current game state
    */
   bgImageUrl: string;
+  xSize: number;
+  ySize: number;
+  fillPercentage: number;
   fieldState: string[][];
-  fieldSizeState: Array<{
-    type: string;
-    size: number;
-    name: string;
-  }>;
+  fieldSizeState: InputsType;
+  fieldFillState: InputsType;
 }
 
 export class InteractiveField extends React.Component<
@@ -103,12 +119,17 @@ export class InteractiveField extends React.Component<
   private playerMarks: string;
   private fillPercentage: number;
   private FieldComponent: FieldComponentInterface;
-  private FieldSizeComponent: FieldSizeComponentIterface;
+  private FieldSizeComponent: FieldInputsComponentIterface;
+  private FieldFillComponent: FieldInputsComponentIterface;
   private stateUpdate: boolean;
   _isMounted: boolean;
 
-  private setStateofInputByName(name: string, size: number): void {
-    const input = this.state.fieldSizeState.find((item) => item.name === name);
+  private setStateofInputByName(
+    name: string,
+    size: number,
+    inputs: InputsType
+  ): void {
+    const input = inputs.find((item) => item.name === name);
     if (input) input.size = size;
   }
 
@@ -132,6 +153,7 @@ export class InteractiveField extends React.Component<
     this.playerMarks = props.playerMarks;
     this.FieldComponent = props.fieldComponent;
     this.FieldSizeComponent = props.fieldSizeComponent;
+    this.FieldFillComponent = props.fieldFillComponent;
     this.xSize = props.xSize;
     this.ySize = props.ySize;
     this.fillPercentage = props.fillPercentage;
@@ -139,6 +161,9 @@ export class InteractiveField extends React.Component<
     this.stateUpdate = false;
     this.state = {
       bgImageUrl: "",
+      xSize: this.xSize,
+      ySize: this.xSize,
+      fillPercentage: this.fillPercentage,
       fieldState: getRandomMatrix2D(
         this.ySize,
         this.xSize,
@@ -146,12 +171,16 @@ export class InteractiveField extends React.Component<
         this.playerMarks
       ),
       fieldSizeState: [
-        { type: "number", size: this.xSize, name: "x" },
-        { type: "number", size: this.ySize, name: "y" },
+        { type: "number", size: this.xSize, name: "X" },
+        { type: "number", size: this.ySize, name: "Y" },
+      ],
+      fieldFillState: [
+        { type: "number", size: this.fillPercentage, name: "Fill %" },
       ],
     };
     this.onClick = this.onClick.bind(this);
-    this.onMouseUp = this.onMouseUp.bind(this);
+    this.onMouseUpFieldInputs = this.onMouseUpFieldInputs.bind(this);
+    this.onMouseUpFieldFill = this.onMouseUpFieldFill.bind(this);
   }
 
   public onClick(x: number, y: number) {
@@ -172,14 +201,40 @@ export class InteractiveField extends React.Component<
       return {
         fieldState: fieldStateCopy,
         fieldSizeState: state.fieldSizeState,
+        fieldFillState: state.fieldFillState,
       };
     });
   }
 
-  public onMouseUp(name: string, value: number) {
+  public onMouseUpFieldFill(name: string, value: number) {
+    this.stateUpdate = false;
+    if (value !== this.fillPercentage) {
+      this.setState((state) => {
+        this.setStateofInputByName(
+          name,
+          this.fillPercentage,
+          this.state.fieldFillState
+        );
+        this.fillPercentage = value;
+        this.stateUpdate = true;
+        return {
+          fieldState: getRandomMatrix2D(
+            this.xSize,
+            this.ySize,
+            this.fillPercentage,
+            this.playerMarks
+          ),
+          fieldSizeState: state.fieldSizeState,
+          fieldFillState: state.fieldFillState,
+        };
+      });
+    }
+  }
+
+  public onMouseUpFieldInputs(name: string, value: number) {
     this.stateUpdate = false;
     switch (name) {
-      case "x": {
+      case "X": {
         this.setState((state) => {
           if (value < this.xSize) {
             while (value < this.xSize) {
@@ -187,7 +242,11 @@ export class InteractiveField extends React.Component<
                 state.fieldState[Number(item)].pop()
               );
               this.xSize -= 1;
-              this.setStateofInputByName(name, this.xSize);
+              this.setStateofInputByName(
+                name,
+                this.xSize,
+                state.fieldSizeState
+              );
               this.stateUpdate = true;
             }
           }
@@ -197,24 +256,34 @@ export class InteractiveField extends React.Component<
                 state.fieldState[Number(item)].push("")
               );
               this.xSize += 1;
-              this.setStateofInputByName(name, this.xSize);
+              this.setStateofInputByName(
+                name,
+                this.xSize,
+                this.state.fieldSizeState
+              );
               this.stateUpdate = true;
             }
           }
           if (this.stateUpdate) this.setImage();
           return {
+            xSize: this.xSize,
             fieldState: state.fieldState,
             fieldSizeState: state.fieldSizeState,
+            fieldFillState: state.fieldFillState,
           };
         });
         break;
       }
-      case "y": {
+      case "Y": {
         this.setState((state) => {
           if (value < this.ySize) {
             this.ySize = value;
             state.fieldState.length = this.ySize;
-            this.setStateofInputByName(name, this.ySize);
+            this.setStateofInputByName(
+              name,
+              this.ySize,
+              this.state.fieldSizeState
+            );
             this.stateUpdate = true;
           }
           if (value > this.ySize) {
@@ -224,14 +293,20 @@ export class InteractiveField extends React.Component<
                 state.fieldState[this.ySize].push("");
               }
               this.ySize += 1;
-              this.setStateofInputByName(name, this.ySize);
+              this.setStateofInputByName(
+                name,
+                this.ySize,
+                this.state.fieldSizeState
+              );
               this.stateUpdate = true;
             }
           }
           if (this.stateUpdate) this.setImage();
           return {
+            ySize: this.ySize,
             fieldState: state.fieldState,
             fieldSizeState: state.fieldSizeState,
+            fieldFillState: state.fieldFillState,
           };
         });
         break;
@@ -268,6 +343,7 @@ export class InteractiveField extends React.Component<
   render() {
     const FieldComponent = this.FieldComponent;
     const FieldSizeComponent = this.FieldSizeComponent;
+    const FieldFillComponent = this.FieldFillComponent;
     const { bgImageUrl } = this.state;
     return [
       <ColumnWrapper
@@ -281,11 +357,22 @@ export class InteractiveField extends React.Component<
           onClick={this.onClick}
         />
       </ColumnWrapper>,
-      <FieldSizeComponent
-        key={"fieldSizeComponent"}
-        inputs={this.state.fieldSizeState}
-        onMouseUp={this.onMouseUp}
-      />,
+      <FormItem key={"fieldFormControl"}>
+        <FieldSet>
+          <Legend>Game Control Panel</Legend>
+          <FieldSizeComponent
+            key={"fieldSizeComponent"}
+            inputs={this.state.fieldSizeState}
+            onMouseUp={this.onMouseUpFieldInputs}
+          />
+          <FieldFillComponent
+            key={"fieldFillComponent"}
+            inputs={this.state.fieldFillState}
+            onMouseUp={this.onMouseUpFieldFill}
+          />
+        </FieldSet>
+        <Button type="button">Reset</Button>
+      </FormItem>,
     ];
   }
 }

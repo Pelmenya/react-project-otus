@@ -3,7 +3,7 @@ import { action } from "@storybook/addon-actions";
 import { withKnobs, text, number } from "@storybook/addon-knobs";
 import { Cell } from "./Cell";
 export default {
-  title: "Lesson8/ Cell",
+  title: "Lesson9/ Cell",
   decorators: [withKnobs],
 };
 
