@@ -1,14 +1,14 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 import { withKnobs, text, number } from "@storybook/addon-knobs";
-import { FieldAxisSizeInput } from "./FieldAxisSize";
+import { FieldInput } from "./FieldInput";
 export default {
-  title: "Lesson8/Field Axis Size Input",
+  title: "Lesson9/Field Input",
   decorators: [withKnobs],
 };
 
 export const nonFilledInput = () => [
-  <FieldAxisSizeInput
+  <FieldInput
     key="jsx"
     size={number("size", 15)}
     type={text("type", "number")}
@@ -18,7 +18,7 @@ export const nonFilledInput = () => [
 ];
 
 export const filledInput = () => [
-  <FieldAxisSizeInput
+  <FieldInput
     key="jsx"
     type={text("type", "number")}
     size={number("size", 15)}

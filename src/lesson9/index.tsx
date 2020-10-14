@@ -1,17 +1,9 @@
 import React from "react";
 import { render } from "react-dom";
-import styled from "@emotion/styled";
 
-import { GameSettingsForm, SettingsForm } from "./components";
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
+import { GameSettingsForm, SettingsForm } from "components/index";
 
 render(
-  <Wrapper>
-    <SettingsForm FormComponent={GameSettingsForm} />
-  </Wrapper>,
+  <SettingsForm FormComponent={GameSettingsForm} />,
   document.getElementById("root")
 );

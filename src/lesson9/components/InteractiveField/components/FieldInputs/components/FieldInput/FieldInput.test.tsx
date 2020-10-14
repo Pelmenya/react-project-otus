@@ -2,14 +2,14 @@ import React from "react";
 import { mount } from "enzyme";
 import renderer from "react-test-renderer";
 
-import { FieldAxisSizeInput } from "./FieldAxisSize";
+import { FieldInput } from "./FieldInput";
 
 describe("Input counter", () => {
   it("renders input for size field", () => {
     expect(
       renderer
         .create(
-          <FieldAxisSizeInput
+          <FieldInput
             type={"number"}
             size={10}
             name={"sizeAxis"}
@@ -22,7 +22,7 @@ describe("Input counter", () => {
   it("calls onMouseUp callback on mouseUp by input", () => {
     const onMouseUp = jest.fn();
     const wrapper = mount(
-      <FieldAxisSizeInput
+      <FieldInput
         type={"number"}
         size={10}
         name={"sizeAxis"}
@@ -38,12 +38,7 @@ describe("Input counter", () => {
     const size = 10;
     const name = "axis";
     const wrapper = mount(
-      <FieldAxisSizeInput
-        type={type}
-        size={size}
-        name={name}
-        onMouseUp={onMouseUp}
-      />
+      <FieldInput type={type} size={size} name={name} onMouseUp={onMouseUp} />
     );
     wrapper.simulate("mouseup");
     expect(onMouseUp).toHaveBeenCalledWith(name, size);

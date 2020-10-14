@@ -4,6 +4,7 @@
     "paths": {
       "types/*": ["src/lesson9/types/*"],
       "utils/*": ["src/lesson9/utils/*"],
+      "components/*": ["src/lesson9/components/*"],
     },
     "target": "es5",
     "module": "commonjs",
